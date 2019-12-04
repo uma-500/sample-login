@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 <body>
-	<form action="login" method="post">
-		<h2>Login Page</h2>
-	    <div>
-		<label>User name: </label> <input type="text" name="userName">
+	<form action="login" method="post" id="loginForm">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<h2>Login Page</h2>
+				<br> <label>User name: </label> <input type="text"
+					name="userName" id="username" class="form-control" />
+				<div id="validUserName" class="text-danger"></div>
+				<br> <label>Password: </label> <input type="password"
+					name="password" id="uPassword" class="form-control">
+				<div id="passowrdMsg" class="text-danger"></div>
+				<br> <input type="submit" value="login" id="submitButton" />
+			</div>
+			<div class="col-3"></div>
 		</div>
-		<br>
-		<div>
-		<label>Password: </label> <input type="password" name="password">
-		</div>
-		<br>
-		<input type="submit" value="login">
 	</form>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<script src="validateForm.js"></script> 
 
 </body>
 </html>

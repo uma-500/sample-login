@@ -14,11 +14,11 @@
 		String userName = (String)session1.getAttribute("userName");
 		
 	%>
-	
-	<h4>Welcome </h4>
-	<%= 
+	<h2>You are successfully logged in !</h2>
+	<h4>This is home page </h4>
+	<%-- <%= 
 	userName
-	%>
+	%> --%>
 	
 	<div>
 		<form action="logout" method="post">

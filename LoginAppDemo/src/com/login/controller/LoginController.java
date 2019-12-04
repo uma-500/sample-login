@@ -37,16 +37,19 @@ public class LoginController extends HttpServlet {
 		String name= request.getParameter("userName");
     	String password=request.getParameter("password");
 		
-		System.out.println("in controller, name: "+name + "password: " +password);
+		System.out.println("in controller, name: "+request.getParameter("userName") + "password: " +password);
 		
 		// Check whether user is authorized or not
 		if (name.equals("admin") && password.equals("admin")) {
 
 			// out.println("in controller, userName" + name);
 			
-			HttpSession session1=request.getSession();
-	    	session1.setAttribute("userName", request.getParameter("userName"));
-	    	session1.setAttribute("password", request.getParameter("password"));
+			HttpSession session=request.getSession();
+			
+			System.out.println("session created: "+session);
+			
+	    	session.setAttribute("userName", request.getParameter("userName"));
+	    	session.setAttribute("password", request.getParameter("password"));
 
 			response.sendRedirect("home.jsp");
 

@@ -45,24 +45,27 @@ public class AuthenticationFilter implements Filter {
 	    HttpSession session=req.getSession(false);
 	    String uri = req.getRequestURI();
 	    System.out.println(" uri is "+uri);
-	    System.out.println("uri: "+uri.endsWith("errorpage.jsp"));
-	    if(session == null) {
+	    System.out.println("isErrorPage: "+uri.endsWith("errorPage.jsp"));
+	    
+	    if(session == null || session.getAttribute("userName") == null) {
 	    	if((uri.endsWith("login.html") || uri.endsWith("login"))) {
 	    		System.out.println("session null, uri: "+uri + "session: "+session);
 		    	
 		    	// pass the request along the filter chain
 		    	chain.doFilter(request, response);
 			} 
-				 else if(uri.endsWith("errorPage.jsp")) { 
+				 else if(uri.endsWith("errorPage.jsp") || uri.endsWith("js")) { 
 					 System.out.println("errorPage");
 				 chain.doFilter(request, response); 
 				 }
+
 				 
 	    	else {
 	    		res.sendRedirect("login.html");
 	    	}
 	    }
 	    else {
+	    	System.out.println("session exists: "+session);
 	    	if((uri.endsWith("login.html") || uri.endsWith("login"))) {
 	    		System.out.println("session exists, page is login.html");
 	    		res.sendRedirect("home.jsp");
