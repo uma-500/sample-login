@@ -1,0 +1,5 @@
+package datastoresample;
+
+public enum DBDataType {
+	ARRAY, BOOLEAN, BLOB, DATE_TIME, INTEGER, KEY, STRING, GEOGRAPHICAL_POINT, FLOATING_POINT;
+}
