@@ -7,7 +7,9 @@ import com.google.cloud.datastore.Key;
 import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 
 public class DatasoreDao {
@@ -39,11 +41,14 @@ public class DatasoreDao {
 		// datastore.update(task);
 
 		Query<Entity> customFieldsQuery = Query.newEntityQueryBuilder().setKind("Task")
-				.setOrderBy(OrderBy.asc("priority"))
+				// .setOrderBy(OrderBy.asc("priority"))
 				// .setFilter(PropertyFilter.gt("task1", keyFactory.newKey("task")))
-//				.setFilter(CompositeFilter.and(PropertyFilter.lt("priority", 6), 
-//						PropertyFilter.eq("description", "task 1")))
-				.setLimit(1000).build();
+
+				// .setFilter(CompositeFilter.and(PropertyFilter.gt("priority", 2),
+				// PropertyFilter.eq("done",false),
+				.setFilter(CompositeFilter.and(PropertyFilter.eq("done", false),
+						PropertyFilter.eq("description", "task 1")))
+				.setOrderBy(OrderBy.asc("priority")).setLimit(1000).build();
 		QueryResults<Entity> customFieldresults = datastore.run(customFieldsQuery);
 		System.out.println(" custom field size ");
 		System.out.println(customFieldresults);
@@ -59,11 +64,13 @@ public class DatasoreDao {
 		// Datastore datastore=DatastoreOptions.getDefaultInstance().getService();
 
 		KeyFactory keyFactory = datastore.newKeyFactory().setKind("Task");
-		Key taskKey = keyFactory.newKey("task3");
-		Entity taskEntity = Entity.newBuilder(taskKey).set("priority", 4).set("done", true).set("description", "task 3").build();
-		Entity savedEntity = datastore.put(taskEntity);
-		System.out.println("saved entity");
-		System.out.println(savedEntity);
+//		Key taskKey = keyFactory.newKey("task3");
+//		Entity taskEntity = Entity.newBuilder(taskKey).set("priority", 4).set("done", true).set("description", "task 3").build();
+//		Entity savedEntity = datastore.put(taskEntity);
+//		System.out.println("saved entity");
+//		System.out.println(savedEntity);
+//		
+//		
 //		
 //		Key taskKey2 = keyFactory.newKey("task2");
 //		Entity taskEntity2 = Entity.newBuilder(taskKey2).set("priority", 2).set("done", false).set("priority", 2).set("description", "task 1").build();
