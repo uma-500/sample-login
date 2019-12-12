@@ -25,8 +25,6 @@ public class DatastoreQueryTest {
 
 		PropertyFilter[] propertyFiltersList = new PropertyFilter[queryFilterList.size()];
 
-		System.out.println("orderByDataList---------");
-		System.out.println(orderByDataList.size());
 		for (int i = 0; i < queryFilterList.size(); i++) {
 			QueryData queryData = queryFilterList.get(i);
 			if (queryData != null) {
@@ -61,25 +59,15 @@ public class DatastoreQueryTest {
 			OrderbyQueryData orderByData = orderByDataList.get(i);
 			if (orderByData != null) {
 				String key = orderByData.getKey();
-				System.out.println("orderByData.getOrderByType()======");
-				System.out.println(orderByData.getOrderByType());
 				OrderBy orderByObj;
 				Method method = OrderBy.class.getDeclaredMethod(orderByData.getOrderByType().getOrderByType(),
 						String.class);
 				orderByObj = (OrderBy) method.invoke(null, key);
-				System.out.println("orderByObj-------");
-				System.out.println(orderByObj);
-				orderByDataArr[i] = orderByObj;
-//				if(orderByData.getOrderByType().equals(OrderbyType.ASC)) {
-//					
-//				}
 
+				orderByDataArr[i] = orderByObj;
 			}
 		}
 
-//		for(OrderbyQueryData orderbyParam :orderByDataList) {
-//			
-//		}
 		try {
 			PropertyFilter propertyFilter1 = propertyFiltersList[0];
 			if (propertyFilter1 != null) {
@@ -101,7 +89,7 @@ public class DatastoreQueryTest {
 			if (orderByDataArr.length > 1) {
 				queryBuilder.setOrderBy(orderByDataArr[0],
 						Arrays.copyOfRange(orderByDataArr, 1, orderByDataArr.length));
-			}else {
+			} else {
 				queryBuilder.setOrderBy(orderByDataArr[0]);
 			}
 		}
@@ -113,22 +101,22 @@ public class DatastoreQueryTest {
 
 	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
-//		QueryData qd = new QueryData();
-//
-//		qd.setKey("description");
-//		qd.setValue("task 1");
-//		qd.setCondition(DBQueryCondition.EQUAL);
-//		qd.setDataType(DBDataType.STRING);
+		QueryData qd = new QueryData();
+
+		qd.setKey("description");
+		qd.setValue("task 1");
+		qd.setCondition(DBQueryCondition.EQUAL);
+		qd.setDataType(DBDataType.STRING);
 
 		QueryData qd2 = new QueryData();
-		qd2.setKey("priority1");
+		qd2.setKey("priority");
 		qd2.setValue("4");
 		qd2.setCondition(DBQueryCondition.GREATER_THAN);
 		qd2.setDataType(DBDataType.INTEGER);
 
 		List<QueryData> queryFilterList = new ArrayList<QueryData>();
 
-		// queryFilterList.add(qd);
+		queryFilterList.add(qd);
 		queryFilterList.add(qd2);
 
 		OrderbyQueryData orderbyQueryData = new OrderbyQueryData();
@@ -148,8 +136,6 @@ public class DatastoreQueryTest {
 		System.out.println(customFieldsQuery);
 
 		QueryResults<Entity> customFieldresults = datastore.run(customFieldsQuery);
-		System.out.println("customFieldresults...");
-		System.out.println(customFieldresults);
 
 		while (customFieldresults.hasNext()) {
 			Entity entity = customFieldresults.next();
